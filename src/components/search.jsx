@@ -5,11 +5,11 @@ export default function Search(props){
     //     return 
     // });
     return(
-        <div className="search_div">
+        <div className="search-div">
             <form onSubmit={props.handleSubmit}>
                 <input id="query" name="query" type="text" onChange={props.handleChange} value={props.query}></input>
             </form>
-            <div className="search_div--suggested_results">
+            <div className="search-div--suggested_results">
                 {/* {suggestions} */}
             </div>
         </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from "axios";
 import './App.css'
 import Search from './components/search';
+import ItemList from "./components/ItemList";
 
 function App() {
   const [query, setQuery] = useState("character name");
@@ -9,7 +10,6 @@ function App() {
   const [foundChar, setFoundChar] = useState(null);
   const [charEquipment, setCharEquipment] = useState(null);
   const [items, setItems] = useState([]);
-  const [updatedItems, setUpdatedItems] = useState([]);
   const [charNames, setCharNames] = useState([]);
 
   function handleChange(e){
@@ -33,14 +33,18 @@ function App() {
   function queryForChar(name){
     axios.get("api/getchar", {params: {name : name}})
     .then(re => {
-      console.log(re);
       setApiErr(null);
       setFoundChar(re.data);
     })
     .catch(err => {
-      console.log(err);
+      console.log(err.response.data);
       setApiErr(err.response.data);
     });
+  }
+
+  function resetCharData(){
+    setCharEquipment(null); //reset equipment ids
+    setItems([]); //reset equipment list
   }
 
   useEffect( ()=>{ //run on site load
@@ -54,6 +58,7 @@ function App() {
 
   useEffect( ()=>{ //run whenever a new char obj is stored after response from api
     if (foundChar != null){ //don't request char equipment if character is null (i.e at page load)
+      resetCharData();
       axios.get("api/getCharGear", {params: {guid: foundChar[0].guid}})
       .then(re => {
         setCharEquipment(re.data);
@@ -64,14 +69,17 @@ function App() {
     }
   },[foundChar]);
 
-  function getItemInfoAndStoreToState(item_template){
-    let baseItem;
-    axios.get("/api/getbaseitem", {params: {item_template: item_template}})
-    .then(re => {
-      baseItem = re.data[0];
-      // console.log(baseItem);
-      setItems(oldArr => {
-        return [...oldArr, baseItem]
+  function getAndSetIconName(item_display_id){
+    axios.get("/api/getitemicon", {params : {display_id: item_display_id}})
+    .then( re =>{
+      setItems(prevArr => {
+        return prevArr.map(item => {
+          if (item_display_id == item.display_id){
+            return {...item, icon: re.data[0].icon}
+          }else{
+            return item
+          }
+        })
       })
     })
     .catch(err => {
@@ -79,44 +87,46 @@ function App() {
     })
   }
 
-  function getItemIconsAndUpdateItemState(items){
-    items.map(item => {
-      if(item.icon == undefined){
-        axios.get("/api/getitemicon", {params: {display_id: item.display_id}})
-        .then(re => {
-          setUpdatedItems(oldArr => {
-            return [...oldArr, {...item, icon: re.data[0]}]
-          })
-        })
-        .catch(err => {
-          console.log(err);
+  useEffect( ()=> {
+    if(items.length >= 1){
+      items.map(item => {
+          //console.log(item);
+        if (item.icon == undefined && item.display_id != undefined){
+          getAndSetIconName(item.display_id);
+        }
+      })
+    }
+  },[items.length]);
+  
+  function getItemInfoAndStoreToState(item){
+    let baseItem;
+    axios.get("/api/getbaseitem", {params: {item_template: item.item_template}})
+    .then(re => {
+      if(re.data[0]){
+        baseItem = {
+          ...re.data[0],
+          _in_slot: item.slot,
+          _item_instance: item.item
+        };
+      }
+      if(baseItem.inventory_type != 0){ //disregard unequipabble items unequippable items.
+        setItems(oldArr => {
+          return [...oldArr, baseItem]
         })
       }
     })
+    .catch(err => {
+      console.log(err);
+    })
   }
-
-  useEffect( ()=> {
-    if(items.length != 0){
-      getItemIconsAndUpdateItemState(items);
-    }
-  },[items.length])
-
+  
   useEffect( ()=> { //run whenever char equipment is fetched and stored to state
     if(charEquipment != null){ //only do when actual data present
       //get item info for all items
       charEquipment.map(item => {
-        axios.get("/api/getbaseitem", {params:{item_template: item.item_template}})
-        .then(re => {
-          // console.log(re.data[0]);
-          // console.log(re.data[0].entry);
-          getItemInfoAndStoreToState(re.data[0].entry);
+          getItemInfoAndStoreToState(item);
         })
-        .catch(err =>{
-          console.log(err);
-        })
-      })
-    }
-  },[charEquipment]);
+      }},[charEquipment]);
 
   return (
     <div className="App">
@@ -126,8 +136,9 @@ function App() {
         <p>{apiErr}</p>
       </div>
       <div className="charSheet">
-        {JSON.stringify(foundChar)}
-        {JSON.stringify(items)}
+        {foundChar != null ? JSON.stringify(foundChar) : ""}
+        {/* {JSON.stringify(items)} */}
+        <ItemList equipment={items}/>
       </div>
     </div>
   )

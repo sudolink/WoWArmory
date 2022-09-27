@@ -1,41 +1,108 @@
+* {
+  margin: 0;
+}
+
+h1 {
+  color: goldenrod;
+	/* -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(232, 211, 106); */
+}
+
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding:2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.search-div {
+  margin: 0.5rem 0 4rem 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#query {
+  text-align: center;
+  font-size:16px;
+  padding:2px;
+  border-color: goldenrod;
+  border-radius:5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#query:focus {
+  outline: 1px solid wheat;
 }
 
-.card {
-  padding: 2em;
+.single-item {
+  margin:1rem 3rem;
 }
 
-.read-the-docs {
-  color: #888;
+.single-item--img {
+  border-radius:5px;
+}
+
+.single-item--name {
+
+}
+
+.item-tooltip {
+  position:absolute;
+  background-color: darkcyan;
+  border-radius: 0.2rem;
+  padding: 1rem;
+  z-index: 77;
+  width: 200px;
+  top:0;
+  left:0;
+}
+
+.char-items {
+  padding-bottom:2rem;
+}
+.char-items--top{
+  display:flex;
+  align-items: center;
+}
+.char-items--bottom{
+  display: flex;
+}
+.char-items--left-bar {
+  margin-left:0;
+  display:flex;
+  flex-wrap:wrap;
+  flex-direction: column;
+}
+.char-items--char-display{
+  width:100%;
+}
+.char-items--right-bar{
+  display:flex;
+  flex-wrap:wrap;
+  flex-direction: column;
+}
+.char-items--bottom-bar{
+  display:flex;
+  align-content: space-around;
+  flex-direction: row;
+}
+
+
+
+.quality-poor {
+  outline: 2px solid lightslategray;
+}
+.quality-common {
+  outline: 2px solid white;
+}
+.quality-uncommon {
+  outline: 2px solid rgb(9, 162, 34);
+}
+.quality-rare {
+  outline: 2px solid rgb(55, 20, 196);
+}
+.quality-epic {
+  outline: 2px solid rgb(126, 8, 126);
+}
+.quality-legendary {
+  outline: 2px solid rgb(206, 81, 3);
+}
+.quality-artifact {
+  outline: 2px solid red;
 }
