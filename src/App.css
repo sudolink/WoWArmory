@@ -31,7 +31,7 @@ h1 {
 }
 
 .single-item {
-  margin:1rem 3rem;
+  margin:0.2rem 1.3rem;
 }
 
 .single-item--img {
@@ -44,7 +44,7 @@ h1 {
 
 .item-tooltip {
   position:absolute;
-  background-color: darkcyan;
+  background-color: rgba(11,11,11,0.7);
   border-radius: 0.2rem;
   padding: 1rem;
   z-index: 77;
@@ -54,6 +54,7 @@ h1 {
 }
 
 .char-items {
+  padding-top:3rem;
   padding-bottom:2rem;
 }
 .char-items--top{
@@ -64,6 +65,7 @@ h1 {
   display: flex;
 }
 .char-items--left-bar {
+  min-width:102px;
   margin-left:0;
   display:flex;
   flex-wrap:wrap;
@@ -73,36 +75,49 @@ h1 {
   width:100%;
 }
 .char-items--right-bar{
+  min-width:102px;
   display:flex;
   flex-wrap:wrap;
   flex-direction: column;
 }
 .char-items--bottom-bar{
   display:flex;
-  align-content: space-around;
-  flex-direction: row;
+  margin-top:2rem;
+  margin-left:auto;
+  margin-right:auto;
+  align-content:space-around;
 }
 
 
+.no-outline {
+  outline:none !important;
+}
 
 .quality-poor {
   outline: 2px solid lightslategray;
+  color: lightslategray;
 }
 .quality-common {
   outline: 2px solid white;
+  color:white;
 }
 .quality-uncommon {
   outline: 2px solid rgb(9, 162, 34);
+  color: rgb(9, 162, 34);
 }
 .quality-rare {
-  outline: 2px solid rgb(55, 20, 196);
+  outline: 2px solid rgba(57, 76, 255, 0.996);
+  color: rgba(57, 76, 255, 0.996);
 }
 .quality-epic {
-  outline: 2px solid rgb(126, 8, 126);
+  outline: 2px solid rgb(227, 28, 227);
+  color:rgb(227, 28, 227);
 }
 .quality-legendary {
   outline: 2px solid rgb(206, 81, 3);
+  color: rgb(206, 81, 3);
 }
 .quality-artifact {
-  outline: 2px solid red;
+  outline: 2px solid darkred;
+  color: darkred;
 }

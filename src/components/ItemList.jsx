@@ -27,7 +27,7 @@ export default function ItemList(props){
                 <Item key={newId} id={nanoid()} item={item}/>
             );
         }else{
-            console.log("!UNHANDLED EDGE CASE IN ITEMLIST COMPONENT!");
+            console.log("!UNHANDLED EDGE CASE IN ITEMLIST COMPONENT! slot -> "+item._in_slot);
         }
     })
     return (

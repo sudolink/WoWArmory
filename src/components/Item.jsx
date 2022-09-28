@@ -5,10 +5,15 @@ import ItemTooltip from "./ItemTooltip";
 export default function Item(props){
     //hardcoded for now `${req.protocol}://${req.get('host')}/${requestedName}`
     const url = props.item.icon != undefined ? `http://localhost:5000/${props.item.icon}.png` : "/"
+    const noIconUrl = "http://localhost:5000/no_icon_found.png"
     const quality = getQualityClass(props.item.quality);
     const [hoveredOver, setIsHoveredOver] = useState(false);
     const [mousePos, setMousePos] = useState({x:0,y:0});
     const ref = useRef(null);
+
+    const replaceImage = (e) => {
+        e.target.src = noIconUrl; 
+    }
 
     useEffect(()=> {
         const handleHover = e => {
@@ -37,8 +42,8 @@ export default function Item(props){
 
     return (
         <div ref={ref} className="single-item" onMouseMove={e => tooltipFollow(e)}>
-            <img id={props.id} className={`single-item--img ${quality}`} src={url} />
-            {hoveredOver && <ItemTooltip id={nanoid()} item={props.item} loc={mousePos}/>}
+            <img id={props.id} className={`single-item--img ${quality}`} src={url} onError={replaceImage} />
+            {hoveredOver && <ItemTooltip id={nanoid()} item={props.item} loc={mousePos} quality={quality}/>}
             {/* <p className="single-item--name">{props.item.name}</p> */}
         </div>
     )

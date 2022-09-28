@@ -138,7 +138,7 @@ function App() {
       <div className="charSheet">
         {foundChar != null ? JSON.stringify(foundChar) : ""}
         {/* {JSON.stringify(items)} */}
-        <ItemList equipment={items}/>
+        {foundChar != null && <ItemList equipment={items}/>}
       </div>
     </div>
   )
