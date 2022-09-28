@@ -2,7 +2,9 @@ import {useState,useEffect,useRef} from "react";
 
 export default function ItemTooltip(props){
 
-    const [dimensions, setDimensions] = useState({width:0, height: 0});
+    const [dimensions, setDimensions] = useState(()=> {
+        return {width:0, height: 0}
+    });
     const ref = useRef(null);
     useEffect(()=> {
         setDimensions({

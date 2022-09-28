@@ -11,7 +11,6 @@ function App() {
   const [charEquipment, setCharEquipment] = useState(null);
   const [items, setItems] = useState([]);
   const [charNames, setCharNames] = useState([]);
-
   function handleChange(e){
     setQuery(e.target.value);
   }

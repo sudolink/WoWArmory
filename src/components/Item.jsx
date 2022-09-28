@@ -1,22 +1,30 @@
 import { nanoid } from "nanoid";
 import {useState, useEffect, useRef} from "react";
 import ItemTooltip from "./ItemTooltip";
+import ItemImage from "./ItemImage";
+import NoIcon from "../assets/no_icon_found.png";
 
 export default function Item(props){
-    //hardcoded for now `${req.protocol}://${req.get('host')}/${requestedName}`
-    const url = props.item.icon != undefined ? `http://localhost:5000/${props.item.icon}.png` : "/"
-    const noIconUrl = "http://localhost:5000/no_icon_found.png"
     const quality = getQualityClass(props.item.quality);
     const [hoveredOver, setIsHoveredOver] = useState(false);
     const [mousePos, setMousePos] = useState({x:0,y:0});
     const ref = useRef(null);
+    const [imgSrc, setImgSrc] = useState(() => {
+        return `${import.meta.env.VITE_BACKEND_URL}${props.item.icon}.png`
+    });
 
-    const replaceImage = (e) => {
-        e.target.src = noIconUrl; 
-    }
+    console.log(NoIcon);
+
+    const onError = (e)=>{ 
+        if (e.target.src !== NoIcon){
+            setImgSrc(NoIcon);
+        }
+      }
+
 
     useEffect(()=> {
         const handleHover = e => {
+            
             setIsHoveredOver(true);          
         }
 
@@ -42,7 +50,8 @@ export default function Item(props){
 
     return (
         <div ref={ref} className="single-item" onMouseMove={e => tooltipFollow(e)}>
-            <img id={props.id} className={`single-item--img ${quality}`} src={url} onError={replaceImage} />
+            <ItemImage id={props.id} quality={quality} imgSrc={imgSrc} onError={onError}/>
+            {/* <img id={props.id} className={`single-item--img ${quality}`} src={url} onError={replaceImage} /> */}
             {hoveredOver && <ItemTooltip id={nanoid()} item={props.item} loc={mousePos} quality={quality}/>}
             {/* <p className="single-item--name">{props.item.name}</p> */}
         </div>
