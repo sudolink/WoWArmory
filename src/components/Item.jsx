@@ -12,15 +12,12 @@ export default function Item(props){
     const [imgSrc, setImgSrc] = useState(() => {
         return `${import.meta.env.VITE_BACKEND_URL}${props.item.icon}.png`
     });
-
-    console.log(NoIcon);
-
+    
     const onError = (e)=>{ 
         if (e.target.src !== NoIcon){
             setImgSrc(NoIcon);
         }
-      }
-
+    }
 
     useEffect(()=> {
         const handleHover = e => {

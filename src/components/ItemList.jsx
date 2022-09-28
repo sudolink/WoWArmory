@@ -5,7 +5,8 @@ import DummyChar from "../assets/dummychar.png";
 
 export default function ItemList(props){
     let [leftBar, charDisplay, rightBar, bottomBar] = [[],null,[],[]];
-    props.equipment.map(item=> {
+    Object.values(props.equipment).map(item=> {
+        // console.log(item, typeof(item));
         //console.log(item);
         // left bar slots top to bottom =>      [0,1,2,14,4,3,18,8]
         // right bar slots top to bottom =>     [9,5,6,7,10,11,12,13]

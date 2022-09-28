@@ -49,7 +49,7 @@ function App() {
   useEffect( ()=>{ //run on site load
     axios.get("api/getAllCharNames")
     .then(re => {
-      setCharNames(re.data.map(char => {
+      setCharNames(Object.values(re.data).map(char => {
         return char.name; //return list of only charnames and store into state
       }));
     })
@@ -60,7 +60,7 @@ function App() {
       resetCharData();
       axios.get("api/getCharGear", {params: {guid: foundChar[0].guid}})
       .then(re => {
-        setCharEquipment(re.data);
+        setCharEquipment(Object.values(re.data));
       })
       .catch(err => {
         console.log(err);
@@ -72,7 +72,8 @@ function App() {
     axios.get("/api/getitemicon", {params : {display_id: item_display_id}})
     .then( re =>{
       setItems(prevArr => {
-        return prevArr.map(item => {
+        return Object.values(prevArr).map(item => {
+          // console.log(item);
           if (item_display_id == item.display_id){
             return {...item, icon: re.data[0].icon}
           }else{
@@ -88,8 +89,7 @@ function App() {
 
   useEffect( ()=> {
     if(items.length >= 1){
-      items.map(item => {
-          //console.log(item);
+      Object.values(items).map(item => {
         if (item.icon == undefined && item.display_id != undefined){
           getAndSetIconName(item.display_id);
         }
@@ -122,7 +122,7 @@ function App() {
   useEffect( ()=> { //run whenever char equipment is fetched and stored to state
     if(charEquipment != null){ //only do when actual data present
       //get item info for all items
-      charEquipment.map(item => {
+      Object.values(charEquipment).map(item => {
           getItemInfoAndStoreToState(item);
         })
       }},[charEquipment]);
