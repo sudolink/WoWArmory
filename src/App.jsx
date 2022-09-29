@@ -82,9 +82,9 @@ function App() {
       setItems(prevArr => {
         return Object.values(prevArr).map(item => {
           if (item_display_id == item.display_id){
-            return {...item, icon: re.data[0].icon}
+            return {...item, icon: re.data[0].icon, src: re.data[0].url}
           }else{
-            return item
+            return item 
           }
         })
       })
@@ -127,17 +127,15 @@ function App() {
         getItemInfoAndStoreToState(item);
         console.log(itemCount, itemRequestCount)
       })
-    }},[charEquipment.length == itemCount]);
+    }},[charEquipment.length == itemCount && itemCount]); //fire when charequip len equals item count AND item count changes as well
     
-    useEffect( ()=> {
-      if(items.length >= 1){
-        Object.values(items).map(item => {
-          if (item.icon == undefined && item.display_id != undefined){
-            getAndSetIconName(item.display_id);
-          }
-        })
-      }
-    },[itemRequestCount == itemCount && itemRequestCount]);
+    useEffect( ()=> { //get icons when gear done loading
+      Object.values(items).map(item => {
+        if (item.icon == undefined && item.display_id != undefined){
+          getAndSetIconName(item.display_id);
+        }
+      })
+    },[itemRequestCount == itemCount && itemRequestCount]); //only fire when 
 
 
     // RENDERING
