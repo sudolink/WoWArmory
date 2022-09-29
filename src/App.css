@@ -35,6 +35,8 @@ h1 {
 }
 
 .single-item--img {
+  min-width: 60px;
+  min-height:60px;
   border-radius:5px;
 }
 

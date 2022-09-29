@@ -8,8 +8,11 @@ function App() {
   const [query, setQuery] = useState("character name");
   const [apiErr, setApiErr] = useState(null);
   const [foundChar, setFoundChar] = useState(null);
-  const [charEquipment, setCharEquipment] = useState(null);
+  const [charEquipment, setCharEquipment] = useState([]);
+  const [itemCount, setItemCount] = useState(null); //for firing item get requests only when equipment is loaded.
   const [items, setItems] = useState([]);
+  const [itemRequestCount, setItemRequestCount] = useState(0) //for firing item icon requests only when item get requests are done
+  const [iconRequestCount, setIconRequestCount] = useState(0);
   const [charNames, setCharNames] = useState([]);
   function handleChange(e){
     setQuery(e.target.value);
@@ -42,9 +45,56 @@ function App() {
   }
 
   function resetCharData(){
-    setCharEquipment(null); //reset equipment ids
+    setCharEquipment([]); //reset equipment ids
     setItems([]); //reset equipment list
+    setItemCount(null);
+    setItemRequestCount(0);
+    setIconRequestCount(0);
   }
+
+  function getItemInfoAndStoreToState(item){
+    let baseItem;
+    axios.get("/api/getbaseitem", {params: {item_template: item.item_template}})
+    .then(re => {
+      let reItem = re.data[0];
+      if(reItem){ //api sends back an object of item props
+        if(reItem.inventory_type != 0){ //disregard unequipabble items unequippable items.
+          baseItem = {
+            ...reItem,
+            _in_slot: item.slot,
+            _item_instance: item.item
+          };
+          setItems(oldArr => {
+            return [...oldArr, baseItem]
+          })
+          setItemRequestCount(prev => prev + 1); //icon getter useffect conditional
+        }
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  function getAndSetIconName(item_display_id){
+    axios.get("/api/getitemicon", {params : {display_id: item_display_id}})
+    .then( re =>{
+      setItems(prevArr => {
+        return Object.values(prevArr).map(item => {
+          if (item_display_id == item.display_id){
+            return {...item, icon: re.data[0].icon}
+          }else{
+            return item
+          }
+        })
+      })
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  // USE EFFECTS ====================================================================================  
 
   useEffect( ()=>{ //run on site load
     axios.get("api/getAllCharNames")
@@ -59,8 +109,9 @@ function App() {
     if (foundChar != null){ //don't request char equipment if character is null (i.e at page load)
       resetCharData();
       axios.get("api/getCharGear", {params: {guid: foundChar[0].guid}})
-      .then(re => {
+      .then(re => {// re.data == array
         setCharEquipment(Object.values(re.data));
+        setItemCount(re.data.length);
       })
       .catch(err => {
         console.log(err);
@@ -68,67 +119,32 @@ function App() {
     }
   },[foundChar]);
 
-  function getAndSetIconName(item_display_id){
-    axios.get("/api/getitemicon", {params : {display_id: item_display_id}})
-    .then( re =>{
-      setItems(prevArr => {
-        return Object.values(prevArr).map(item => {
-          // console.log(item);
-          if (item_display_id == item.display_id){
-            return {...item, icon: re.data[0].icon}
-          }else{
-            return item
-          }
-        })
-      })
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
-  useEffect( ()=> {
-    if(items.length >= 1){
-      Object.values(items).map(item => {
-        if (item.icon == undefined && item.display_id != undefined){
-          getAndSetIconName(item.display_id);
-        }
-      })
-    }
-  },[items.length]);
-  
-  function getItemInfoAndStoreToState(item){
-    let baseItem;
-    axios.get("/api/getbaseitem", {params: {item_template: item.item_template}})
-    .then(re => {
-      if(re.data[0]){
-        baseItem = {
-          ...re.data[0],
-          _in_slot: item.slot,
-          _item_instance: item.item
-        };
-      }
-      if(baseItem.inventory_type != 0){ //disregard unequipabble items unequippable items.
-        setItems(oldArr => {
-          return [...oldArr, baseItem]
-        })
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
   
   useEffect( ()=> { //run whenever char equipment is fetched and stored to state
-    if(charEquipment != null){ //only do when actual data present
+    if(charEquipment.length > 0){ //only do when actual data present
       //get item info for all items
       Object.values(charEquipment).map(item => {
-          getItemInfoAndStoreToState(item);
+        getItemInfoAndStoreToState(item);
+        console.log(itemCount, itemRequestCount)
+      })
+    }},[charEquipment.length == itemCount]);
+    
+    useEffect( ()=> {
+      if(items.length >= 1){
+        Object.values(items).map(item => {
+          if (item.icon == undefined && item.display_id != undefined){
+            getAndSetIconName(item.display_id);
+          }
         })
-      }},[charEquipment]);
+      }
+    },[itemRequestCount == itemCount && itemRequestCount]);
 
-  return (
-    <div className="App">
+
+    // RENDERING
+
+
+    return (
+      <div className="App">
       <h1>Armory</h1>
       <Search handleChange={handleChange} handleSubmit={handleSubmit} value={query}/>
       <div className="error-box">

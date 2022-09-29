@@ -9,10 +9,13 @@ export default function Item(props){
     const [hoveredOver, setIsHoveredOver] = useState(false);
     const [mousePos, setMousePos] = useState({x:0,y:0});
     const ref = useRef(null);
+    const [icon, setIcon] = useState(props.item.icon || NoIcon);
     const [imgSrc, setImgSrc] = useState(() => {
-        return `${import.meta.env.VITE_BACKEND_URL}${props.item.icon}.png`
+        return `${import.meta.env.VITE_BACKEND_URL}${icon}.png`
     });
     
+    console.log(`Item was passed *${props.item.icon}* for its icon property`)
+
     const onError = (e)=>{ 
         if (e.target.src !== NoIcon){
             setImgSrc(NoIcon);
