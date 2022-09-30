@@ -33,7 +33,7 @@ function App() {
   }
 
   function queryForChar(name){
-    axios.get("api/getchar", {params: {name : name}})
+    axios.get("/api/getchar", {params: {name : name}})
     .then(re => {
       setApiErr(null);
       setFoundChar(re.data);
@@ -97,7 +97,7 @@ function App() {
   // USE EFFECTS ====================================================================================  
 
   useEffect( ()=>{ //run on site load
-    axios.get("api/getAllCharNames")
+    axios.get("/api/getAllCharNames")
     .then(re => {
       setCharNames(Object.values(re.data).map(char => {
         return char.name; //return list of only charnames and store into state
@@ -108,7 +108,7 @@ function App() {
   useEffect( ()=>{ //run whenever a new char obj is stored after response from api
     if (foundChar != null){ //don't request char equipment if character is null (i.e at page load)
       resetCharData();
-      axios.get("api/getCharGear", {params: {guid: foundChar[0].guid}})
+      axios.get("/api/getCharGear", {params: {guid: foundChar[0].guid}})
       .then(re => {// re.data == array
         setCharEquipment(Object.values(re.data));
         setItemCount(re.data.length);
