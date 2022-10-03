@@ -35,24 +35,46 @@ h1 {
 }
 
 .single-item--img {
-  min-width: 60px;
-  min-height:60px;
+  min-width: 44px;
+  min-height:44px;
+  max-width: 54px;
+  max-height:54px;
   border-radius:5px;
 }
 
 .single-item--name {
-
+  font-size:1.3rem;
+  margin-bottom: 0.1rem;
 }
 
 .item-tooltip {
   position:absolute;
   background-color: rgba(11,11,11,0.7);
-  border-radius: 0.2rem;
+  border-radius: 0.3rem;
+  border-top: 1px solid white;  
   padding: 1rem;
   z-index: 77;
-  width: 200px;
   top:0;
   left:0;
+  text-align: left;
+}
+
+.item-tooltip--not-empty {
+  min-width: 200px;
+}
+
+.item-level {
+  color: rgb(255, 197, 52);
+}
+
+.inventory-type {
+  display:flex;
+}
+
+.item-class{
+}
+.item-subclass{
+  margin-left:auto;
 }
 
 .char-items {

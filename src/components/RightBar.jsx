@@ -7,14 +7,14 @@ export default function RighBarEquipment(props){
     // console.log(props.items)    
     const [slots, setSlots] = useState(
         [
-            {slot: 9, displayOrder:1 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Hands`},
-            {slot: 5, displayOrder:2 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Waist`},
-            {slot: 6, displayOrder:3 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Legs`},
-            {slot: 7, displayOrder:4 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Feet`},
-            {slot: 10, displayOrder:5 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Finger`},
-            {slot: 11, displayOrder:6 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Finger`},
-            {slot: 12, displayOrder:7 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Trinket`},
-            {slot:13, displayOrder:8 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Trinket`},
+            {slotName:"Hands", slot: 9, displayOrder:1 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Hands`},
+            {slotName:"Waist", slot: 5, displayOrder:2 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Waist`},
+            {slotName:"Legs", slot: 6, displayOrder:3 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Legs`},
+            {slotName:"Feet", slot: 7, displayOrder:4 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Feet`},
+            {slotName:"Ring #1", slot: 10, displayOrder:5 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Finger`},
+            {slotName:"Ring #2", slot: 11, displayOrder:6 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Finger`},
+            {slotName:"Trinket #1", slot: 12, displayOrder:7 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Trinket`},
+            {slotName:"Trinket #2", slot:13, displayOrder:8 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Trinket`},
         ])
 
     useEffect(()=> {

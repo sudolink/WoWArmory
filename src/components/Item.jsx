@@ -42,7 +42,7 @@ export default function Item(props){
     return (
         <div ref={ref} className="single-item" onMouseMove={e => tooltipFollow(e)}>
             <ItemImage id={props.id} quality={quality} icon={props.item.icon} emptyIcon={props.item.emptyIcon} empty={empty}/>
-            {hoveredOver && !empty && <ItemTooltip id={nanoid()} item={props.item} loc={mousePos} quality={quality}/>}
+            {hoveredOver && <ItemTooltip id={nanoid()} item={props.item} loc={mousePos} quality={quality} empty={empty}/>}
         </div>
     )
 }
