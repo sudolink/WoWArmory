@@ -7,7 +7,12 @@ export default function Item(props){
     const quality = getQualityClass(props.item.quality);
     const [hoveredOver, setIsHoveredOver] = useState(false);
     const [mousePos, setMousePos] = useState({x:0,y:0});
+    const [empty, setEmpty] = useState(false);
     const ref = useRef(null);
+
+    useEffect( ()=> {
+        props.item.icon ? setEmpty(false) : setEmpty(true);
+    },[props])
     useEffect(()=> {
         const handleHover = e => {
             
@@ -36,10 +41,8 @@ export default function Item(props){
 
     return (
         <div ref={ref} className="single-item" onMouseMove={e => tooltipFollow(e)}>
-            <ItemImage id={props.id} quality={quality} icon={props.item.icon} src = {props.item.src}/>
-            {/* <img id={props.id} className={`single-item--img ${quality}`} src={url} onError={replaceImage} /> */}
-            {hoveredOver && <ItemTooltip id={nanoid()} item={props.item} loc={mousePos} quality={quality}/>}
-            {/* <p className="single-item--name">{props.item.name}</p> */}
+            <ItemImage id={props.id} quality={quality} icon={props.item.icon} emptyIcon={props.item.emptyIcon} empty={empty}/>
+            {hoveredOver && !empty && <ItemTooltip id={nanoid()} item={props.item} loc={mousePos} quality={quality}/>}
         </div>
     )
 }

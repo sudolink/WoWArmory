@@ -3,7 +3,15 @@ import NoIcon from "../assets/no_icon_found.png";
 
 export default function ItemImage(props){
     const [imgSrc, setImgSrc] = useState(() => {return NoIcon });
+    const [dontRefresh, setDontRefresh] = useState(false);
     
+    useEffect( () => {
+        props.empty
+        ? setImgSrc(props.emptyIcon+".png")
+        : setImgSrc(`${import.meta.env.VITE_ICON_DIR}/${props.icon}.png`)
+        setDontRefresh(true);
+    }, [props && dontRefresh == false])
+
     const onError = (e) => {    
         setImgSrc(NoIcon);
     }

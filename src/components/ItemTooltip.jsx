@@ -26,7 +26,7 @@ export default function ItemTooltip(props){
             > 
             <p className={`${props.quality} no-outline`}>{props.item.name}</p>
             <p>display_id: {props.item.display_id}</p>
-            <p>in_slot: {props.item._in_slot}</p>
+            <p>in_slot: {props.item.slot}</p>
             <p>icon: {props.item.icon}</p>
         </div>
     )
