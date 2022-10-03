@@ -14,13 +14,17 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": process.env.VITE_BACKEND_URL,
+      "/api": {
+        target: process.env.VITE_BACKEND_URL,
+        changeOrigin: true,
+        secure: true
+      },
     }
   },
   build: {
     //gen manifest.json in output dir
-    //base: "/WoWArmory/",
-    manifest: true,
+    base: "/WoWArmory/",
+    //manifest: true,
     emptyOutDir: true,
     rollupOptions: {
       input: resolve(__dirname,"index.html") 

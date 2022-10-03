@@ -33,7 +33,7 @@ function App() {
   }
 
   function queryForChar(name){
-    axios.get("/api/getchar", {params: {name : name}})
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/getchar`, {params: {name : name}})
     .then(re => {
       setApiErr(null);
       setFoundChar(re.data);
@@ -54,7 +54,7 @@ function App() {
 
   function getItemInfoAndStoreToState(item){
     let baseItem;
-    axios.get("/api/getbaseitem", {params: {item_template: item.item_template}})
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/getbaseitem`, {params: {item_template: item.item_template}})
     .then(re => {
       let reItem = re.data[0];
       if(reItem){ //api sends back an object of item props
@@ -77,7 +77,7 @@ function App() {
   }
 
   function getAndSetIconName(item_display_id){
-    axios.get("/api/getitemicon", {params : {display_id: item_display_id}})
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/getitemicon`, {params : {display_id: item_display_id}})
     .then( re =>{
       setItems(prevArr => {
         return Object.values(prevArr).map(item => {
@@ -97,7 +97,7 @@ function App() {
   // USE EFFECTS ====================================================================================  
 
   useEffect( ()=>{ //run on site load
-    axios.get("/api/getAllCharNames")
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/getAllCharNames`)
     .then(re => {
       setCharNames(Object.values(re.data).map(char => {
         return char.name; //return list of only charnames and store into state
@@ -107,8 +107,8 @@ function App() {
 
   useEffect( ()=>{ //run whenever a new char obj is stored after response from api
     if (foundChar != null){ //don't request char equipment if character is null (i.e at page load)
-      resetCharData();
-      axios.get("/api/getCharGear", {params: {guid: foundChar[0].guid}})
+      resetCharData(); //wipe preexisting gear
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/getCharGear`, {params: {guid: foundChar[0].guid}})
       .then(re => {// re.data == array
         setCharEquipment(Object.values(re.data));
         setItemCount(re.data.length);
@@ -125,7 +125,8 @@ function App() {
       //get item info for all items
       Object.values(charEquipment).map(item => {
         getItemInfoAndStoreToState(item);
-        console.log(itemCount, itemRequestCount)
+        console.log(itemCount, itemRequestCount, item
+          )
       })
     }},[charEquipment.length == itemCount && itemCount]); //fire when charequip len equals item count AND item count changes as well
     
