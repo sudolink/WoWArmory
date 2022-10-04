@@ -23,7 +23,7 @@ export default defineConfig({
   },
   build: {
     //gen manifest.json in output dir
-    base: "/WoWArmory/",
+    base: "/",
     //manifest: true,
     emptyOutDir: true,
     rollupOptions: {
