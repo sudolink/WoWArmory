@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import NoIcon from "../assets/no_icon_found.png";
+import NoIcon from "/no_icon_found.png";
 
 export default function ItemImage(props){
     const [imgSrc, setImgSrc] = useState(() => {return NoIcon });

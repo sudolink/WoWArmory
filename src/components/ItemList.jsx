@@ -2,7 +2,7 @@ import React from "react";
 import LeftBar from "./LeftBar";
 import RightBar from "./RightBar";
 import BottomBar from "./BottomBar";
-import DummyChar from "../assets/dummychar.png"
+import DummyChar from "/dummychar.png"
 
 export default function ItemList(props){
     let [leftBar, charDisplay, rightBar, bottomBar] = [[],null,[],[]];

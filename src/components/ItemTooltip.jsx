@@ -15,7 +15,7 @@ export default function ItemTooltip(props){
         })
     },[ref.current])
 
-    console.log(props.item);
+    //console.log(props.item);
 
     const [bonding, setBonding] = useState(() => {
         if(!props.empty){

@@ -4,6 +4,9 @@ import './App.css'
 import Search from './components/search';
 import ItemList from "./components/ItemList";
 
+const API_URL = import.meta.env.VITE_PROD_END === "DEV" ? import.meta.env.VITE_BACKEND_URL_DEV : import.meta.env.VITE_BACKEND_URL;
+
+
 function App() {
   const [apiErr, setApiErr] = useState(null);
   const [charData, setCharData] = useState(null);
@@ -11,7 +14,7 @@ function App() {
 
   function queryForChar(name){
     setCharData(null);
-    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v2/getCharAndGear`, {params: {name : name}})
+    axios.get(`${API_URL}/api/v2/getCharAndGear`, {params: {name : name}})
     .then(re => {
       setApiErr(null);
       setCharData(re.data);
@@ -25,7 +28,7 @@ function App() {
   // USE EFFECTS ====================================================================================  
 
   useEffect( ()=>{ //run on site load
-    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/getAllCharNames`)
+    axios.get(`${API_URL}/api/v1/getAllCharNames`)
     .then(re => {
       setCharNames(Object.values(re.data).map(char => {
         return char.name; //return list of only charnames and store into state
