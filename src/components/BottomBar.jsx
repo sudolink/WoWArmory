@@ -7,9 +7,9 @@ export default function BottomBarEquipment  (props){
     // console.log(props.items)    
     const [slots, setSlots] = useState(
         [
-            {slotName:"Main Hand", slot: 15, displayOrder:1 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Head`},
-            {slotName:"Off Hand", slot: 16, displayOrder:2 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Neck`},
-            {slotName:"Ranged", slot: 17, displayOrder:3 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Shoulder`},
+            {slotName:"Main Hand", slot: 15, displayOrder:1 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-MainHand`},
+            {slotName:"Off Hand", slot: 16, displayOrder:2 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-SecondaryHand`},
+            {slotName:"Ranged", slot: 17, displayOrder:3 ,emptyIcon: `${import.meta.env.VITE_EMPTY_SLOT_DIR}/UI-PaperDoll-Slot-Ranged`},
         ])
 
     useEffect(()=> {

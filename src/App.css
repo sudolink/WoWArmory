@@ -77,6 +77,22 @@ h1 {
   margin-left:auto;
 }
 
+.dmgDiv{
+  font-weight: bold;
+  display: flex;
+  align-content: space-between;
+}
+.dmgSep {
+  margin: 0px 3px;
+}
+.speed{
+  margin-left:auto;
+}
+
+.armorAmount{
+  font-weight: bold;
+}
+
 .char-items {
   padding-top:3rem;
   padding-bottom:2rem;
