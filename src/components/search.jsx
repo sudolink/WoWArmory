@@ -27,8 +27,9 @@ export default function Search(props){
 
     return(
         <div className="search-div">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="queryForm">
                 <input id="query" name="query" type="text" onChange={handleChange} value={query}></input>
+                {/* <button type="submit">Query</button> */}
             </form>
             <div className="search-div--suggested_results">
                 {/* {suggestions} */}

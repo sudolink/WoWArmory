@@ -2,11 +2,12 @@ import React from "react";
 import LeftBar from "./LeftBar";
 import RightBar from "./RightBar";
 import BottomBar from "./BottomBar";
-import DummyChar from "/dummychar.png"
+import ModelThree from "./Model";
 
 export default function ItemList(props){
+    const equipment = props.char.equipment;
     let [leftBar, charDisplay, rightBar, bottomBar] = [[],null,[],[]];
-    props.equipment.map(item=> {
+    equipment.map(item=> {
         if([0,1,2,14,4,3,18,8].includes(item.slot)){ //belongs to left bar
             leftBar.push(item);
         }else if([9,5,6,7,10,11,12,13].includes(item.slot)){ //belongs to right bar
@@ -19,16 +20,20 @@ export default function ItemList(props){
     })
     return (
         <div className="char-items">
-            <div className="char-items--top">
-                <LeftBar items={leftBar}/>
-                <div className="char-items--char-display">
-                    <p>char here</p>
-                    <img src={DummyChar}/>
-                </div>
-                <RightBar items={rightBar}/>
+            <div className="char--display">
+                {Array(27).fill().map(() => {
+                    return <p>.M2 model loader WIP</p>
+                })}
+                {/* <ModelThree /> */}
             </div>
-            <div className="char-items--bottom">
-                <BottomBar items={bottomBar} />
+            <div className="char--display-overlay">
+                <div className="topBars">
+                    <LeftBar items={leftBar}/>
+                    <RightBar items={rightBar}/>
+                </div>
+                <div className="bottomBar">
+                    <BottomBar items={bottomBar} />
+                </div>
             </div>
         </div>
     )

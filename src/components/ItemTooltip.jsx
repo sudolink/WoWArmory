@@ -33,7 +33,9 @@ export default function ItemTooltip(props){
     })
     const [subClass, setSubClass] = useState(() => {
         if(!props.empty){
-            return [2,4].includes(props.item.class) && props.item.subclass != 0 ? resolveSubClass(props.item.class, props.item.subclass) : null; //only weps and armors
+            let tempSub = resolveSubClass(props.item.class, props.item.subclass)
+            tempSub = tempSub === "Miscellaneous" ? null : tempSub; //don't show miscellaneous armor category on tooltip
+            return [2,4].includes(props.item.class) ? tempSub : null; //only weps and armors
         }else{
             return null
         }
@@ -69,7 +71,7 @@ export default function ItemTooltip(props){
                 className={`item-tooltip`} 
                 style={
                     {
-                        top:`${props.loc.y - dimensions.height }px`, // subtract top dimension, to sticky the
+                        top:`${props.loc.y - dimensions.height - 10}px`, // subtract top dimension, to sticky the
                         left:`${props.loc.x}px`                     // bottom left of tooltip to cursor
                     }
                 }

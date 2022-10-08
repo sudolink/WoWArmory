@@ -36,7 +36,7 @@ export default function Item(props){
     },[])
 
     function tooltipFollow(e){
-        setMousePos({x:e.pageX, y:e.pageY})
+        setMousePos({x:e.clientX, y:e.clientY})
     }
 
     return (
