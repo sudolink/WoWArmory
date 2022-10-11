@@ -2,7 +2,8 @@ import React from "react";
 import LeftBar from "./LeftBar";
 import RightBar from "./RightBar";
 import BottomBar from "./BottomBar";
-import ModelThree from "./Model";
+import { nanoid } from "nanoid";
+import { resolvePlayerFactionForLogo } from "./helper";
 
 export default function ItemList(props){
     const equipment = props.char.equipment;
@@ -21,10 +22,7 @@ export default function ItemList(props){
     return (
         <div className="char-items">
             <div className="char--display">
-                {Array(27).fill().map(() => {
-                    return <p>.M2 model loader WIP</p>
-                })}
-                {/* <ModelThree /> */}
+                <img className="char--faction-logo" src={resolvePlayerFactionForLogo(props.char.race)}></img>
             </div>
             <div className="char--display-overlay">
                 <div className="topBars">

@@ -7,9 +7,27 @@
   background-color: aliceblue;
 }
 
+.tempCharList {
+  display:flex;
+  justify-content: center;
+}
+
+.notAnActualHref {
+  color:white;
+  padding:10px;
+}
+
+.notAnActualHref:hover {
+  /* cursor: url('/Cast.png'),auto; */
+}
+/* .notAnActualHref:visited {
+  color:darkcyan;
+} */
+
 html {
   background-color: #151515;
 }
+
 
 body {
   z-index: -111;
@@ -17,6 +35,8 @@ body {
   background: radial-gradient(closest-side, #242424, #151515);
   /* filter: url('#noiseFilter'); */
   color: white;
+  padding-bottom: 100px;
+  cursor: url("/Point.png"), auto;
 }
 
 .armoryHeading {
@@ -80,20 +100,25 @@ body {
 }
 
 .single-item--name {
-  font-size:1.3rem;
+  font-size:larger;
   margin-bottom: 0.1rem;
+  font-weight:500;
 }
 
 .item-tooltip {
   position:fixed;
   background-color: rgba(11,11,11,0.7);
   border-radius: 0.3rem;
-  border-top: 1px solid white;
+  border-top: 1px solid rgba(255,255,255,0.6);
+  border-right: 1px solid rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
   z-index: 77;
   top:0;
   left:0;
   text-align: left;
   padding:1rem;
+  font-weight:300;
 }
 
 .item-tooltip--not-empty {
@@ -128,34 +153,115 @@ body {
 }
 
 .armorAmount{
-  font-weight: bold;
 }
 
 .charSheet {
   position: relative;
-  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quick-partition-faction {
+  display: flex;
+  position: relative;
+  grid-column-start: 3;
+  padding-left:2rem;
+}
+.quick-partition-char {
+  display: flex;
+  position: relative;
+  grid-column-start: 2;
+  min-width:270px;
+}
+
+
+.quick--faction-logo {
+  /* position:absolute;
+  left:0; */
+  height:200px;
+  -webkit-filter: drop-shadow(2px 2px 30px rgba(255, 255, 255, 0.2));
+  filter: drop-shadow(2px 2px 30px rgba(255, 255, 255, 0.2));
+}
+
+.quick-portrait-box {
+  position: relative;
+  margin-right:0.5rem;
+}
+
+.quick-level {
+  background: no-repeat center center url("/levelCircle.png");
+  background-size: contain;
+  position:absolute;
+  color: rgb(255, 231, 72);
+  border-radius:100%;
+  padding:5px;
+  background-color: #151515;
+  right:3px;
+  top: 87px; /*height of portrait image*/
+  height:27px;
+  width:27px;
+  text-align: center;
+  font-size: 1.27rem;
+}
+
+.quick-portrait {
+  border-radius:1rem;
+  height:99px;
+  margin:1rem 0.8rem;
+}
+
+.quick-name {
+  font-size:xx-large;
+  margin: 1rem 0rem 0.2rem 0rem;
+  filter: drop-shadow(1px 1px 33px rgba(255,255,255,0.8));
+  /* text-shadow: 0px 3px rgba(1,1,1,0.5); */
+  /* -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6); */
+}
+
+.quick-hrank {
+  color: gold;
 }
 
 .char--quick-info {
+  position:relative;
+  margin-top: 3rem;
   min-height:100px;
+  align-items: center;
+  display:inline-grid;
+  min-width:300px;
+  max-width:1000px;
+  filter:drop-shadow(0px 0px 77px rgba(255,255,255,0.2));
+  padding:1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  /* border-bottom: 1px dotted rgba(255,255,255,0.1); */
 }
 
 .char-items {
   position:relative;
   display: flex;
-  min-width: 400px;
+  min-width: 300px;
   max-width: 1000px;
-  margin:auto;
   flex-direction: column;
   padding-top:3rem;
-  padding-bottom:5rem;
-  align-content: center;
+  margin-bottom: 10rem;
+  margin:auto;
+  /* background-color: rgba(255,255,255,0.5); */
 }
 
 .char--display {
-  width: 100%;
-  /* background-color: rgba(255,255,255,0.5); */
-  height: 500px;
+  position: relative;
+  height: 600px;
+}
+
+.char--faction-logo {
+  margin-top:7rem;
+  opacity:0.3;
+
+}
+
+
+.wipText {
+  color: rgba(255,255,255,0.1);
 }
 
 .scene,
@@ -179,14 +285,12 @@ canvas {
 .topBars {
   display:flex;
   flex-wrap: nowrap;
-  justify-content: center;
 }
 
 .bottomBar {
   display:flex;
   flex-wrap: nowrap;
   justify-content: center;
-  margin-top: 2rem;
 }
 
 .char-items--left-bar {
@@ -245,3 +349,13 @@ canvas {
   outline: 2px solid darkred;
   color: darkred;
 }
+
+/* 
+0xff9d9d9d,        // GREY
+0xffffffff,        // WHITE
+0xff1eff00,        // GREEN
+0xff0070dd,        // BLUE
+0xffa335ee,        // PURPLE
+0xffff8000,        // ORANGE
+0xffe6cc80         // LIGHT YELLOW 
+*/

@@ -3,7 +3,9 @@ import axios from "axios";
 import './App.css'
 import Search from './components/search';
 import ItemList from "./components/ItemList";
-import ModelThree from './components/Model';
+import PlayerShort from './components/PlayerShort';
+import { resolvePlayerFactionForBg } from './components/helper.js';
+import { nanoid } from 'nanoid';
 
 const API_URL = import.meta.env.VITE_PROD_ENV === "DEV" ? import.meta.env.VITE_BACKEND_URL_DEV : import.meta.env.VITE_BACKEND_URL;
 
@@ -12,12 +14,22 @@ function App() {
   const [charData, setCharData] = useState(null);
   const [charNames, setCharNames] = useState([]);
   const [tempState, setTempState] = useState(false);
+  const [factionBgHEX, setFactionBgHEX] = useState({inner: "#242424", outer:"#151515"})
+  
+  const sendQuery = (e,item) => {
+    // console.log(e.target,item);
+    e.preventDefault();
+    queryForChar(item);
+  }
 
   const charList = charNames.map(item => {
     return (
-      ` ${item},`
+      <div key={nanoid()} onClick={e => sendQuery(e,item)}>
+        <a className="notAnActualHref" href={`${item}`}>{`${item}`}</a>
+      </div>
     )
   })
+  document.body.style['background'] = `radial-gradient(closest-side, ${factionBgHEX.inner}, ${factionBgHEX.outer})`
 
   function queryForChar(name){
     setCharData(null);
@@ -25,6 +37,7 @@ function App() {
     .then(re => {
       setApiErr(null);
       setCharData(re.data);
+      setFactionBgHEX(resolvePlayerFactionForBg(re.data.race));
     })
     .catch(err => {
       console.log(err.response.data);
@@ -52,25 +65,20 @@ function App() {
       <div className="error-box">
         <p>{apiErr}</p>
       </div>
-      
+      <h3 style={{padding: '0rem 0rem 1rem 0', color:"pink", fontSize:"x-large"}}>(temp) LIST OF NAMES IN DB</h3>
       <div className='tempCharList'>
-        <u><p>Temp list of names in DB</p></u>
         {charList}
       </div>
       {/* <div className="temp">
         <button onClick={()=>{setTempState(prev => !prev)}}>M3</button>
         {tempState && <ModelThree />}
       </div> */}
-      <div className="charSheet">
         {charData != null &&
-            <div className="char--quick-info">
-                <p className="char--name">{charData.name}</p>
-            </div>
+                <PlayerShort name={charData.name} hrank={charData.honor_highest_rank} level={charData.level} class={charData.class} health={charData.health} race={charData.race} gender={charData.gender}/>
         }
         {/* {JSON.stringify(items)} */}
         {charData != null && <ItemList char={charData}/>}
       </div>
-    </div>
   )
 }
 //DISABLE REACT STRICT MODE IN INDEX TO STOP THE DOUBLE-LOGGING

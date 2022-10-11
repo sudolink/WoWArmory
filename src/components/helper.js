@@ -1,3 +1,5 @@
+import HordeLogo from "/horde2.png";
+import AllianceLogo from "/alliance2.png";
 
 function resolveBindingText(bindingInt){        
     let bondingTable = {
@@ -132,8 +134,62 @@ function resolveSubClass(classInt,  subClassInt){
     return subclass
 }
 
+function resolvePlayerClass(classInt){
+    let classTable = ["NOCLASS","Warrior","Paladin","Hunter","Rogue","Priest","Death Knight","Shaman","Mage","Warlock","UNK2","Druid"]
+    return classTable[classInt];
+}
+
+function resolvePlayerRaceToText(raceInt){
+    let raceTable= ["NONE","Human","Orc","Dwarf","Night Elf","Undead","Tauren","Gnome","Troll","Goblin"]
+    return raceTable[raceInt];
+}
+
+function resolvePlayerPortraitSrc(raceInt,genderInt){
+    let raceTable= ["NONE","human","orc","dwarf","nelf","undead","tauren","gnome","troll","goblin"]
+    return `/${raceTable[raceInt]}${genderInt == 1 ? "_female" : ""}.png`
+}
+
+function resolvePlayerClassToHEX(raceInt){
+    // CLASS            R       G       B       HEX
+    // Death Knight	    196 	30	    58		#C41E3A	    Red
+    // Demon Hunter	    163 	48	    201		#A330C9	    Dark Magenta
+    // Druid	        255 	124 	10		#FF7C0A	    Orange
+    // Evoker	        51  	147 	127		#33937F	    Emerald Green
+    // Hunter	        170 	211 	114		#AAD372	    Green
+    // Mage	            63	    199 	235 	#3FC7EB	    Light Blue
+    // Monk         	0	    255 	152 	#00FF98	    Spring Green
+    // Paladin	        244 	140 	186		#F48CBA	    Pink
+    // Priest	        255 	255 	255		#FFFFFF	    White*
+    // Rogue	        255 	244 	104		#FFF468	    Yellow*
+    // Shaman	        0	    112	    221		#0070DD	    Blue
+    // Warlock	        135 	136 	238		#8788EE	    Purple
+    // Warrior	        198 	155 	109		#C69B6D	    Tan
+    let classTable = ["NOCLASS","Warrior","Paladin","Hunter","Rogue","Priest","Death Knight","Shaman","Mage","Warlock","UNK2","Druid"]
+    let hexTable = ["#000", "#C69B6D","#F48CBA","#AAD372","#FFF468","#FFFFFF","#C41E3A","#0070DD","#3FC7EB","#8788EE","#fff","#FF7C0A"]
+    return hexTable[raceInt]
+}
+
+function resolvePlayerRank(rankInt){
+    return "?h-rank?"
+}
+
+function resolvePlayerFactionForLogo(raceInt){
+    return [1,3,4,7].includes(raceInt) ? AllianceLogo : HordeLogo
+}
+
+function resolvePlayerFactionForBg(raceInt){
+    return [1,3,4,7].includes(raceInt) ? {inner: "#0c1142", outer: "#05071c"} : {inner: "#42100c", outer:"#260707"}
+}
+
 export {
     resolveBindingText,
     resolveInvType,
-    resolveSubClass
+    resolveSubClass,
+    resolvePlayerClass,
+    resolvePlayerClassToHEX,
+    resolvePlayerPortraitSrc,
+    resolvePlayerRaceToText,
+    resolvePlayerRank,
+    resolvePlayerFactionForLogo,
+    resolvePlayerFactionForBg
 }

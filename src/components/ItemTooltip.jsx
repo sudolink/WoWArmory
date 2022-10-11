@@ -1,5 +1,5 @@
 import React, {useState,useEffect,useRef} from "react";
-import {resolveBindingText, resolveInvType, resolveSubClass} from "./ItemHelper.js"
+import {resolveBindingText, resolveInvType, resolveSubClass} from "./helper.js"
 
 export default function ItemTooltip(props){
     const [dimensions, setDimensions] = useState(()=> {
@@ -76,7 +76,7 @@ export default function ItemTooltip(props){
                     }
                 }
             > 
-            <p className={`${props.quality} no-outline single-item--name ${!props.empty && "item-tooltip--not-empty"}`}>{props.item.name || props.item.slotName }  </p>
+            <h1 className={`${props.quality} no-outline single-item--name ${!props.empty && "item-tooltip--not-empty"}`}>{props.item.name || props.item.slotName }  </h1>
             {!props.empty ? itemMisc : <p style={{color: "grey"}}>(empty slot)</p>}
             {!props.empty && props?.item?.dmg_min1 > 0 && itemDamage}
             {!props.empty && props?.item?.armor > 0 && <p className="armorAmount">{props.item.armor} Armor</p>}

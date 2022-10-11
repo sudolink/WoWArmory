@@ -15,7 +15,6 @@ export default function Item(props){
     },[props])
     useEffect(()=> {
         const handleHover = e => {
-            
             setIsHoveredOver(true);          
         }
 
