@@ -5,6 +5,7 @@ export default function ItemTooltip(props){
     const [dimensions, setDimensions] = useState(()=> {
         return {width:0, height: 0}
     });
+
     const ref = useRef(null);
     useEffect(()=> {
         let xOffset= 0;
@@ -14,6 +15,15 @@ export default function ItemTooltip(props){
             height: ref.current.offsetHeight + yOffset
         })
     },[ref.current])
+
+    const computedStyle = {
+        top:`${
+                props.loc.y < window.innerHeight / 4 ? props.loc.y - dimensions.height /2 : props.loc.y - dimensions.height - 10
+            }px`, // subtract top dimension, to sticky the
+        left:`${
+                props.loc.x > window.innerWidth /2 ? props.loc.x - dimensions.width : props.loc.x
+            }px`                     // bottom left of tooltip to cursor
+    }
 
     //console.log(props.item);
 
@@ -66,16 +76,7 @@ export default function ItemTooltip(props){
     )
 
     return(
-        <div id={props.id}
-                ref={ref}
-                className={`item-tooltip`} 
-                style={
-                    {
-                        top:`${props.loc.y - dimensions.height - 10}px`, // subtract top dimension, to sticky the
-                        left:`${props.loc.x}px`                     // bottom left of tooltip to cursor
-                    }
-                }
-            > 
+        <div id={props.id} ref={ref} className={`item-tooltip`} style={computedStyle}> 
             <h1 className={`${props.quality} no-outline single-item--name ${!props.empty && "item-tooltip--not-empty"}`}>{props.item.name || props.item.slotName }  </h1>
             {!props.empty ? itemMisc : <p style={{color: "grey"}}>(empty slot)</p>}
             {!props.empty && props?.item?.dmg_min1 > 0 && itemDamage}
