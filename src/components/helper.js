@@ -1,4 +1,4 @@
-import HordeLogo from "/horde2.png";
+import HordeLogo from "/horde3.png";
 import AllianceLogo from "/alliance2.png";
 
 function resolveBindingText(bindingInt){        
@@ -174,7 +174,7 @@ function resolvePlayerRank(rankInt){
 }
 
 function resolvePlayerFactionForLogo(raceInt){
-    return [1,3,4,7].includes(raceInt) ? AllianceLogo : HordeLogo
+    return [1,3,4,7].includes(raceInt) ? AllianceLogo : HordeLogo;
 }
 
 function resolvePlayerFactionForBg(raceInt){

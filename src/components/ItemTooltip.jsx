@@ -81,6 +81,7 @@ export default function ItemTooltip(props){
             {!props.empty ? itemMisc : <p style={{color: "grey"}}>(empty slot)</p>}
             {!props.empty && props?.item?.dmg_min1 > 0 && itemDamage}
             {!props.empty && props?.item?.armor > 0 && <p className="armorAmount">{props.item.armor} Armor</p>}
+            
         </div>
     )
 
