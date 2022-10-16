@@ -65,3 +65,30 @@ export default function Item(props){
         </div>
     )
 }
+
+function getQualityClass(qualityInt){
+    let quality;
+    switch(qualityInt){
+        case 0:
+            quality = "quality-poor";
+            break;
+        case 1:
+            quality = "quality-common";
+            break; 
+        case 2:
+            quality = "quality-uncommon";
+            break;
+        case 3:
+            quality = "quality-rare";
+            break;
+        case 4:
+            quality = "quality-epic";
+            break;
+        case 5:
+            quality = "quality-legendary";
+            break;
+        case 6:
+            quality = "quality-artifact";
+    }
+    return quality;
+}

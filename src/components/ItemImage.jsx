@@ -16,7 +16,6 @@ export default function ItemImage(props){
         setImgSrc(NoIcon);
     }
     return (
-        // <img className={`single-item--img ${props.quality}`} src={imgSrc? imgSrc : NoIcon} onError={onErr} />
         <img className={`single-item--img ${props.quality}`} src={imgSrc} onError={onError}/>
     )
 }
