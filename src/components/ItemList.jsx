@@ -2,7 +2,6 @@ import React from "react";
 import LeftBar from "./LeftBar";
 import RightBar from "./RightBar";
 import BottomBar from "./BottomBar";
-import { nanoid } from "nanoid";
 import { resolvePlayerFactionForLogo } from "./helper";
 
 export default function ItemList(props){
