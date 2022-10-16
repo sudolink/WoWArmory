@@ -13,7 +13,6 @@ function App() {
   const [apiErr, setApiErr] = useState(null);
   const [charData, setCharData] = useState(null);
   const [charNames, setCharNames] = useState([]);
-  const [tempState, setTempState] = useState(false);
   const [factionBgHEX, setFactionBgHEX] = useState({inner: "#242424", outer:"#151515"})
   
   const sendQuery = (e,item) => {

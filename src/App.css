@@ -102,6 +102,10 @@ body {
   border-radius:2px;
 }
 
+.single-item--img:hover{
+  transform: scale(1.03);
+}
+
 .single-item--name {
   margin-bottom: 0.1rem;
   font-weight:500;
@@ -208,8 +212,6 @@ body {
   /* position:absolute;
   left:0; */
   height:150px;
-  -webkit-filter: drop-shadow(2px 2px 30px rgba(255, 255, 255, 0.2));
-  filter: drop-shadow(2px 2px 30px rgba(255, 255, 255, 0.2));
 }
 
 .quick-portrait-box {
