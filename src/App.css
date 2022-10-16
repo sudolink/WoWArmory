@@ -113,7 +113,7 @@ body {
   border-radius: 0.3rem;
   border-top: 1px solid rgba(255,255,255,0.6);
   border-right: 1px solid rgba(255,255,255,0.5);
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.3); 
   border-left: 1px solid rgba(255,255,255,0.3);
   z-index: 77;
   top:0;
@@ -121,6 +121,19 @@ body {
   text-align: left;
   padding:1rem;
   font-weight:300;
+}
+
+.item-tooltip > * {
+  padding-top:3px;
+}
+
+.itemMisc > * {
+  padding-top:3px;
+}
+
+.dmgDiv > * {
+  padding-top: 3px;
+
 }
 
 .item-tooltip--not-empty {
@@ -143,7 +156,7 @@ body {
 }
 
 .dmgDiv{
-  font-weight: bold;
+  /* font-weight: bold; */
   display: flex;
   align-content: space-between;
 }
@@ -155,6 +168,17 @@ body {
 }
 
 .armorAmount{
+}
+
+.statsDiv {
+  padding-top:5px;
+}
+.resistDiv{
+  padding-top:5px;
+}
+
+.durabilityText{ 
+  padding-top:1rem;
 }
 
 .charSheet {

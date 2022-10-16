@@ -149,7 +149,7 @@ function resolvePlayerPortraitSrc(raceInt,genderInt){
     return `/${raceTable[raceInt]}${genderInt == 1 ? "_female" : ""}.png`
 }
 
-function resolvePlayerClassToHEX(raceInt){
+function resolvePlayerClassToHEX(classInt){
     // CLASS            R       G       B       HEX
     // Death Knight	    196 	30	    58		#C41E3A	    Red
     // Demon Hunter	    163 	48	    201		#A330C9	    Dark Magenta
@@ -166,7 +166,7 @@ function resolvePlayerClassToHEX(raceInt){
     // Warrior	        198 	155 	109		#C69B6D	    Tan
     let classTable = ["NOCLASS","Warrior","Paladin","Hunter","Rogue","Priest","Death Knight","Shaman","Mage","Warlock","UNK2","Druid"]
     let hexTable = ["#000", "#C69B6D","#F48CBA","#AAD372","#FFF468","#FFFFFF","#C41E3A","#0070DD","#3FC7EB","#8788EE","#fff","#FF7C0A"]
-    return hexTable[raceInt]
+    return hexTable[classInt]
 }
 
 function resolvePlayerRank(rankInt){
@@ -181,6 +181,42 @@ function resolvePlayerFactionForBg(raceInt){
     return [1,3,4,7].includes(raceInt) ? {inner: "#0c1142", outer: "#05071c"} : {inner: "#42100c", outer:"#260707"}
 }
 
+function resolveStatType(statInt){
+let statTable = [null,null,"Health","Agility","Strength","Intellect","Spirit","Stamina"];
+return statTable[statInt];
+}
+
+function resolveResistType(resistName){
+    let resistText = "unknown resistance"
+    switch(resistName){
+        case "frost_res":
+            resistText = "Frost Resistance";
+            break;
+        case "holy_res":
+            resistText = "Holy Resistance";
+            break;
+        case "fire_res":
+            resistText = "Fire Resistance";
+            break;
+        case "nature_res":
+            resistText = "Nature Resistance";
+            break;
+        case "shadow_res":
+            resistText = "Shadow Resistance";
+            break;
+        case "arcane_res":
+            resistText = "Arcane Resistance";
+            break;
+    }
+    return resistText;
+}
+
+function resolveSkill(skillInt){
+    //taken from SkillLine.dbc
+    let profTable = {202: "Engineering", 165: "Leatherworking", 171: "Alchemy", 182: "Herbalism", 333: "Enchanting", 186: "Mining", 393:"Skinning", 129:"First Aid", 185: "Cooking", 356: "Fishing", 633: "Lockpicking", 164: "Blacksmithing", 197: "Tailoring"}
+    return profTable[skillInt]
+}
+
 export {
     resolveBindingText,
     resolveInvType,
@@ -191,5 +227,8 @@ export {
     resolvePlayerRaceToText,
     resolvePlayerRank,
     resolvePlayerFactionForLogo,
-    resolvePlayerFactionForBg
+    resolvePlayerFactionForBg,
+    resolveStatType,
+    resolveResistType,
+    resolveSkill
 }
