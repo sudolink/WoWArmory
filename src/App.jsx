@@ -4,6 +4,7 @@ import './App.css'
 import Search from './components/search';
 import ItemList from "./components/ItemList";
 import PlayerShort from './components/PlayerShort';
+import OtherDetails from './components/OtherCharDetails';
 import { resolvePlayerFactionForBg } from './components/helper.js';
 import { nanoid } from 'nanoid';
 
@@ -56,7 +57,6 @@ function App() {
   },[])
 
     // RENDERING
-
     return (
     <div className="App">
       <p className="armoryHeading">Armory</p>
@@ -77,6 +77,8 @@ function App() {
         }
         {/* {JSON.stringify(items)} */}
         {charData != null && <ItemList char={charData}/>}
+        
+        {charData != null && <OtherDetails charGUID = {charData.guid}/>}
       </div>
   )
 }

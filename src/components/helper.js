@@ -1,5 +1,9 @@
 import HordeLogo from "/horde3.png";
 import AllianceLogo from "/alliance2.png";
+import skillLineData from "../assets/data/SkillLine.json" assert {type: "json"};
+import skillLineAbilityDataRESTRUCTURED from "../assets/data/SkillLineAbility_RESTRUCTURED.json" assert {type: "json"};
+// import Spells from "../assets/data/Spell_RESTRUCTURED.json" assert {type: "json"};
+// IMPORTING SPELLS MAKES THE SITE LOAD SUPER SLOW ON ANY DEVICE. THIS EFFECTIVELY MAKES IT IMPOSSIBLE TO KEEP THESE FILES CLIENT SIDE. WILL HAVE TO MOVE TO SERVERSIDE.
 
 function resolveBindingText(bindingInt){        
     let bondingTable = {
@@ -217,6 +221,36 @@ function resolveSkill(skillInt){
     return profTable[skillInt]
 }
 
+
+function getSkillLineDeets(skillLineUINT){
+    let re = [null, null]
+    Object.keys(skillLineData).map(entry => {
+        let row = skillLineData[entry];
+        if(row['ID'] == skillLineUINT){
+            re = [row['DisplayName_enUS'],row['CategoryID']];
+        }
+    })
+    return re;
+}
+
+function getSkillLineAbilityDeets(skillLineAbilityUINT){
+    let re = skillLineAbilityDataRESTRUCTURED[skillLineAbilityUINT];
+    console.log(re);
+    return re;
+}
+
+function resolveSkillCategory(catID){
+   let catDefines = {5:"SKILL_CATEGORY_ATTRIBUTES",
+   6:"SKILL_CATEGORY_WEAPON",
+   7:"SKILL_CATEGORY_CLASS",
+   8:"SKILL_CATEGORY_ARMOR",
+   9:"SKILL_CATEGORY_SECONDARY",
+    10:"SKILL_CATEGORY_LANGUAGES",
+    11:"SKILL_CATEGORY_PROFESSION",
+    12:"SKILL_CATEGORY_GENERIC"}
+    return catDefines[catID];
+}
+
 export {
     resolveBindingText,
     resolveInvType,
@@ -230,5 +264,8 @@ export {
     resolvePlayerFactionForBg,
     resolveStatType,
     resolveResistType,
-    resolveSkill
+    resolveSkill,
+    getSkillLineDeets,
+    getSkillLineAbilityDeets,
+    resolveSkillCategory
 }

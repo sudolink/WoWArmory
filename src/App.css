@@ -352,6 +352,23 @@ canvas {
   margin-right:1rem;
 }
 
+
+.Talents {
+  margin:2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.tempCat {
+  margin:1rem;
+}
+
+.tempSkill {
+  margin:5px;
+}
+
 .no-outline {
   outline:none !important;
 }
