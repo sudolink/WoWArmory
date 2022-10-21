@@ -16,8 +16,6 @@ export default function CharSkills(props){
         }else{
             profs[skillCat] = [skillObj];
         }
-         
-        return <a className="tempSkill" key={skillGUID} href={`https://classicdb.ch/?spell=${skillGUID}`} target='_blank' rel={`spell=${skillGUID}`}>{`${skillName}` + `${maxPoints > 1 ? ` ${skillPoints}/${maxPoints}`: ""}`}</a>;
     })
     
     const tempSkillElements = Object.keys(profs).map(category => {

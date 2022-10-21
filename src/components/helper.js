@@ -239,6 +239,10 @@ function getSkillLineAbilityDeets(skillLineAbilityUINT){
     return re;
 }
 
+function resolveIconFromSpellEntry(spellEntry){
+    return spellEntry;
+}
+
 function resolveSkillCategory(catID){
    let catDefines = {5:"SKILL_CATEGORY_ATTRIBUTES",
    6:"SKILL_CATEGORY_WEAPON",
@@ -267,5 +271,6 @@ export {
     resolveSkill,
     getSkillLineDeets,
     getSkillLineAbilityDeets,
-    resolveSkillCategory
+    resolveSkillCategory,
+    resolveIconFromSpellEntry
 }

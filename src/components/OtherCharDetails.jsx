@@ -23,10 +23,9 @@ export default function OtherDetails(props){
         <div className="OtherCharDetails">
             <div className="Talents">
                 {abilities != null && <Talents abilities={abilities}/>}
-                {skills != null && <CharSkills skills={skills}/>}
             </div>
-            <div className="Professions">
-                <p>profession placeholder</p>
+            <div className="Professions">            
+               {skills != null && <CharSkills skills={skills}/>}
             </div>
         </div>
     )

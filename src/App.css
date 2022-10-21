@@ -367,6 +367,12 @@ canvas {
 
 .tempSkill {
   margin:5px;
+  color:white;
+  text-decoration: none;
+}
+
+.tempSkill:hover {
+  color:rgb(255, 231, 72);
 }
 
 .no-outline {
